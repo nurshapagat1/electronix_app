@@ -170,3 +170,11 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'https://electronix-app.onrender.com/accounts/google/login/?process=login&next=/laptops/',
 ]
+# Force HTTPS for allauth and Django on Render
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+# Security settings for production
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
