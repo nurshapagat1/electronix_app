@@ -91,6 +91,8 @@ path('policy/', TemplateView.as_view(template_name='privacy.html'), name='policy
 
 
 path("account/connections/", views.socialaccount_connections, name="socialaccount_connections"),
+    path('terms/', TemplateView.as_view(template_name='terms.html'), name='terms'),
+    path('privacy/', TemplateView.as_view(template_name='privacy.html'), name='privacy'),
 
 
 ]
