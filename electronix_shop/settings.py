@@ -158,7 +158,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'APP': {
             'client_id': os.getenv('GOOGLE_CLIENT_ID'),
             'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
-            'key': ''
         }
     }
 }
@@ -174,7 +173,7 @@ CSRF_TRUSTED_ORIGINS = [
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-
+CSRF_TRUSTED_ORIGINS = ['https://electronix-app.onrender.com']
 # Security settings for production
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
