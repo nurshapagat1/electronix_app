@@ -168,4 +168,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 CSRF_TRUSTED_ORIGINS = [
     'https://electronix-app.onrender.com',
+    'https://*.onrender.com',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'https://https://electronix-app.onrender.com/accounts/google/login/?process=login&next=/laptops/',
 ]
