@@ -1,0 +1,307 @@
+/* ======================================================
+   ELECTRONIX WELCOME - HEAVY MINIMALIST DESIGN
+   Consistent with Login and Signup pages
+====================================================== */
+
+/* ROOT VARIABLES (Consistent with other pages) */
+:root {
+    --bg: #050505;
+    --surface: #0b0b0b;
+    --surface-light: #111111;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    --border-glow: rgba(255, 255, 255, 0.2);
+    --text: #f5f5f7;
+    --text-muted: #9ca3af;
+    --accent: #ffffff;
+    --accent-glow: rgba(255, 255, 255, 0.1);
+    --danger: #ef4444;
+    --success: #10b981;
+    --warning: #f59e0b;
+}
+
+/* RESET & BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* HEAVY GLASS BACKGROUND EFFECT */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.02) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.015) 0%, transparent 40%),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.01) 0%, transparent 40%);
+    animation: float 30s infinite linear;
+    z-index: -2;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(2%, 2%) rotate(360deg); }
+}
+
+/* MAIN WELCOME CARD - HEAVY DESIGN */
+.landing-container {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.02) 0%,
+        rgba(255, 255, 255, 0.01) 100%
+    );
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 80px 56px;
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 
+        0 35px 70px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 12px 48px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+}
+
+.landing-container:hover {
+    transform: translateY(-8px);
+    border-color: var(--border-hover);
+    box-shadow: 
+        0 45px 90px -15px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 16px 56px rgba(0, 0, 0, 0.4);
+}
+
+/* GLOWING TOP BORDER */
+.landing-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        rgba(255, 255, 255, 0.4), 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    border-radius: 28px 28px 0 0;
+}
+
+/* HEADER SECTION */
+.landing-container h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--text), var(--text-muted));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+}
+
+.landing-container p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 60px;
+}
+
+/* BUTTONS CONTAINER */
+.landing-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* BUTTON STYLES - HEAVY DESIGN */
+.landing-buttons a {
+    padding: 22px 40px;
+    background: var(--surface-light);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 180px;
+    max-width: 200px;
+}
+
+.landing-buttons a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.landing-buttons a:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+.landing-buttons a:hover::before {
+    opacity: 0.05;
+}
+
+.landing-buttons a:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.landing-buttons a i {
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.landing-buttons a span {
+    position: relative;
+    z-index: 1;
+}
+
+/* FEATURES SECTION - Like Login Options */
+.welcome-features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.feature-item i {
+    font-size: 1rem;
+    color: var(--accent);
+    opacity: 0.7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .landing-container {
+        padding: 60px 32px;
+        margin: 10px;
+        backdrop-filter: blur(30px);
+    }
+    
+    .landing-container h1 {
+        font-size: 2.8rem;
+    }
+    
+    .landing-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .landing-buttons a {
+        width: 100%;
+        max-width: 240px;
+    }
+    
+    .welcome-features {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .landing-container:hover {
+        transform: translateY(-4px);
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-container {
+        padding: 50px 24px;
+        border-radius: 24px;
+        backdrop-filter: blur(20px);
+    }
+    
+    .landing-container h1 {
+        font-size: 2.4rem;
+    }
+    
+    .landing-container p {
+        font-size: 0.9rem;
+        margin-bottom: 50px;
+    }
+    
+    .landing-buttons a {
+        padding: 20px 32px;
+        font-size: 0.9rem;
+    }
+}
+
+/* LOADING ANIMATION - Same as login */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.landing-container {
+    animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

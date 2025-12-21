@@ -1,0 +1,411 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ review.title }} - Electronix Reviews</title>
+    <link rel="stylesheet" href="{% static 'electronics/allauth_styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: #0b0b0b;
+            --surface-light: #111111;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
+            --text: #f5f5f7;
+            --text-muted: #9ca3af;
+            --accent: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        .review-detail-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text), var(--text-muted));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        
+        .review-detail-card {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.02) 0%,
+                rgba(255, 255, 255, 0.01) 100%
+            );
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .review-detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                rgba(255, 255, 255, 0.4), 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            border-radius: 24px 24px 0 0;
+        }
+        
+        .review-detail-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 
+                0 35px 70px -15px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .reviewer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.2rem;
+            letter-spacing: 0.02em;
+        }
+        
+        .review-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+        
+        .review-rating {
+            color: var(--warning);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+        }
+        
+        .review-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text);
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+        }
+        
+        .review-content {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            white-space: pre-wrap;
+        }
+        
+        .review-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .like-btn {
+            background: var(--surface-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .like-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .like-btn.liked {
+            background: var(--warning);
+            color: var(--bg);
+            border-color: var(--warning);
+        }
+        
+        .like-btn.liked:hover {
+            background: var(--warning);
+            opacity: 0.9;
+        }
+        
+        .like-count {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        .like-count i {
+            color: var(--warning);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 32px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            padding: 12px 24px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--surface);
+        }
+        
+        .message-alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .message-success {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+        
+        .message-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--border);
+            color: var(--text-muted);
+        }
+        
+        @media (max-width: 768px) {
+            .review-detail-container {
+                padding: 32px 16px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.4rem;
+            }
+            
+            .review-detail-card {
+                padding: 32px 24px;
+            }
+            
+            .review-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            
+            .review-title {
+                font-size: 1.6rem;
+            }
+            
+            .review-actions {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body class="allauth-container">
+    <div class="allauth-main">
+        <aside class="allauth-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="brand-logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>Electronix</span>
+                </a>
+            </div>
+            
+            <nav>
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="{% url 'laptops-list' %}" class="menu-link">
+                            <i class="fas fa-laptop"></i>
+                            <span>Shop Laptops</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'about-us' %}" class="menu-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About Us</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'submit_review' %}" class="menu-link">
+                            <i class="fas fa-edit"></i>
+                            <span>Write Review</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'review_list' %}" class="menu-link">
+                            <i class="fas fa-star"></i>
+                            <span>All Reviews</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/" class="menu-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="allauth-content">
+            <div class="review-detail-container">
+                <div class="page-header">
+                    <h1>Review Details</h1>
+                    <p>Read the full review</p>
+                </div>
+                
+                <!-- Messages -->
+                {% if messages %}
+                <div style="margin-bottom: 24px;">
+                    {% for message in messages %}
+                    <div class="message-alert message-{{ message.tags }}">
+                        <div class="message-icon">
+                            {% if message.tags == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif message.tags == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% elif message.tags == 'warning' %}
+                                <i class="fas fa-exclamation-triangle"></i>
+                            {% else %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                        </div>
+                        <div class="message-content">
+                            {{ message }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="review-detail-card">
+                    <div class="review-meta">
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">{{ review.customer.user.username }}</div>
+                            <div class="review-date">{{ review.created_date|date:"F d, Y" }}</div>
+                        </div>
+                        <div class="review-rating">
+                            {% with ''|center:review.rating as range %}
+                                {% for _ in range %}
+                                    <i class="fas fa-star"></i>
+                                {% endfor %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                    
+                    <h1 class="review-title">{{ review.title }}</h1>
+                    
+                    <div class="review-content">
+                        {{ review.content|linebreaks }}
+                    </div>
+                    
+                    <div class="review-actions">
+                        <form method="POST" action="{% url 'toggle_review_like' review.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="like-btn {% if has_liked %}liked{% endif %}">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span>
+                                    {% if has_liked %}
+                                        Unlike
+                                    {% else %}
+                                        Like
+                                    {% endif %}
+                                </span>
+                            </button>
+                        </form>
+                        
+                        <div class="like-count">
+                            <i class="fas fa-heart"></i>
+                            <span>{{ review.likes }} people liked this review</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 32px;">
+                    <a href="{% url 'review_list' %}" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> <span>Back to All Reviews</span>
+                    </a>
+                    <a href="{% url 'submit_review' %}" class="back-btn" style="background: var(--surface-light);">
+                        <i class="fas fa-edit"></i> <span>Write Your Own Review</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'electronics/sixth.css' %}?v=999">
+    <link rel="stylesheet" href="{% static 'electronics/account_menu.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Electronics Store</title>
+</head>
+<body>
+
+<div class="account-menu-container">
+    <a href="/about-us/" class="menu-button about-us-button">
+        <i class="fas fa-info-circle"></i> About Us
+    </a>
+    
+    <a href="{% url 'electronics-cart' %}" class="menu-button cart-button">
+        <i class="fas fa-shopping-cart"></i> Cart
+        {% if cart_item_count and cart_item_count > 0 %}
+        <span class="cart-badge">{{ cart_item_count }}</span>
+        {% endif %}
+    </a>
+    
+    <div class="account-dropdown" tabindex="0">
+        <button class="menu-button dropdown-toggle">
+            <i class="fas fa-user-circle"></i>
+            Account Settings
+            <span class="arrow">▼</span>
+        </button>
+        
+        <div class="dropdown-menu">
+            <a href="{% url 'account_change_password' %}" tabindex="0">
+                <i class="fas fa-key"></i> Change Password
+            </a>
+            <a href="{% url 'account_email' %}" tabindex="0">
+                <i class="fas fa-envelope"></i> Change Email
+            </a>
+            <a href="{% url 'socialaccount_connections' %}" tabindex="0">
+                <i class="fas fa-plug"></i> Account Connections
+            </a>
+            <div class="menu-divider"></div>
+            
+            <form method="post" action="{% url 'account_logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn" tabindex="0">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<h1>Laptops</h1>
+<p class="page-sub">Premium selection of cutting-edge laptops</p>
+
+{% if messages %}
+<div style="max-width: 800px; margin: 20px auto; padding: 0 20px;">
+    {% for message in messages %}
+    <div style="padding: 12px 16px; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; 
+         {% if message.tags == 'success' %}
+         border: 1px solid rgba(195, 230, 203, 0.3); background: rgba(21, 87, 36, 0.1); color: #d4edda;
+         {% elif message.tags == 'error' %}
+         border: 1px solid rgba(245, 198, 203, 0.3); background: rgba(114, 28, 36, 0.1); color: #f8d7da;
+         {% else %}
+         border: 1px solid rgba(190, 229, 235, 0.3); background: rgba(12, 84, 96, 0.1); color: #d1ecf1;
+         {% endif %}">
+        {% if message.tags == 'success' %}
+            <i class="fas fa-check-circle"></i>
+        {% elif message.tags == 'error' %}
+            <i class="fas fa-exclamation-circle"></i>
+        {% else %}
+            <i class="fas fa-info-circle"></i>
+        {% endif %}
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="laptop-grid">
+{% for product in products %}
+<div class="laptop-card">
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.details|truncatewords:15 }}</p>
+    <div class="price">${{ product.price|floatformat:2 }}</div>
+
+    {% if product.cart_item %}
+        <div class="quantity-controls">
+            <form method="POST" action="{% url 'update_cart' product.id 'subtract' %}">
+                {% csrf_token %}
+                <button type="submit" class="qty-btn">−</button>
+            </form>
+
+            <span class="quantity">{{ product.cart_item.quantity }}</span>
+
+            <form method="POST" action="{% url 'update_cart' product.id 'add' %}">
+                {% csrf_token %}
+                <button type="submit" class="qty-btn">+</button>
+            </form>
+        </div>
+
+        <a href="{% url 'electronics-cart' %}" class="go-to-cart-btn">Go to cart</a>
+    {% else %}
+        <form method="POST" action="{% url 'create-order' product.id %}">
+            {% csrf_token %}
+            <button class="add-to-cart-btn">Add to cart</button>
+        </form>
+    {% endif %}
+</div>
+{% endfor %}
+</div>
+
+</body>
+</html>

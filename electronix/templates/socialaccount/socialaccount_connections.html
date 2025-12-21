@@ -1,0 +1,95 @@
+{% extends "allauth_base.html" %}
+{% load i18n %}
+{% load socialaccount %}
+
+{% block page_title %}Account Connections{% endblock %}
+{% block page_subtitle %}Connect and manage your third-party accounts{% endblock %}
+
+{% block content %}
+    <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 32px; color: var(--text);">
+        {% trans "Third-Party Accounts" %}
+    </h2>
+
+    {% if form.accounts %}
+        <p style="color: var(--text-muted); margin-bottom: 32px;">
+            {% trans "You can sign in to your account using any of the following third-party accounts:" %}
+        </p>
+
+        <div class="connections-list">
+            {% for base_account in form.accounts %}
+                {% with base_account.get_provider_account as account %}
+                <div class="connection-item glass-panel">
+                    <div class="connection-info">
+                        <div class="connection-icon">
+                            <i class="fab fa-{{ account.get_brand.name|lower }}"></i>
+                        </div>
+                        <div class="connection-details">
+                            <h4>{{ account.get_brand.name }}</h4>
+                            <p>{{ account.account.extra_data.email|default:account }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="connection-badges">
+                        {% if account.account.extra_data.email %}
+                        <span class="badge badge-primary">
+                            <i class="fas fa-envelope" style="margin-right: 4px;"></i>
+                            {{ account.account.extra_data.email }}
+                        </span>
+                        {% endif %}
+                        
+                        <form method="post" action="{% url 'socialaccount_connections' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="account" value="{{ base_account.id }}">
+                            <button type="submit" class="btn btn-danger" style="padding: 8px 16px; font-size: 0.85rem;">
+                                <i class="fas fa-unlink"></i>
+                                <span>{% trans "Remove" %}</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center" style="padding: 48px 0;">
+            <div style="font-size: 4rem; color: var(--text-muted); opacity: 0.3; margin-bottom: 24px;">
+                <i class="fas fa-plug"></i>
+            </div>
+            <h3 style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 16px;">
+                {% trans "No third-party accounts connected" %}
+            </h3>
+            <p style="color: var(--text-muted); max-width: 400px; margin: 0 auto;">
+                {% trans "Connect your account to third-party services for easier sign-in." %}
+            </p>
+        </div>
+    {% endif %}
+
+    <div class="add-form glass-panel mt-12">
+        <h3 class="add-form-title">{% trans "Add a Third-Party Account" %}</h3>
+        
+        <div class="social-providers" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+            {% get_providers as socialaccount_providers %}
+            {% for provider in socialaccount_providers %}
+                {% if provider.id == "openid" %}
+                    {% for brand in provider.get_brands %}
+                        <a title="{{ brand.name }}" 
+                           class="btn btn-secondary" 
+                           href="{% provider_login_url provider.id openid=brand.openid_url process='connect' %}"
+                           style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                            <i class="fab fa-{{ brand.name|lower }}"></i>
+                            <span>{{ brand.name }}</span>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+                
+                <a title="{{ provider.name }}" 
+                   class="btn btn-secondary" 
+                   href="{% provider_login_url provider.id process='connect' scope=scope auth_params=auth_params %}"
+                   style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                    <i class="fab fa-{{ provider.id }}"></i>
+                    <span>{{ provider.name }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

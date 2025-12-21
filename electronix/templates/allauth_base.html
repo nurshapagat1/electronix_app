@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}Account Settings - Electronix{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'electronics/allauth_styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="allauth-container">
+    <div class="allauth-main">
+        <!-- SIDEBAR MENU -->
+        <aside class="allauth-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="brand-logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>Electronix</span>
+                </a>
+            </div>
+            
+            <nav>
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="{% url 'account_email' %}" class="menu-link {% if request.path == '/accounts/email/' %}active{% endif %}">
+                            <i class="fas fa-envelope"></i>
+                            <span>Change Email</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'account_change_password' %}" class="menu-link {% if request.path == '/accounts/password/change/' or request.path == '/accounts/password/set/' %}active{% endif %}">
+                            <i class="fas fa-key"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'socialaccount_connections' %}" class="menu-link {% if request.path == '/accounts/social/connections/' %}active{% endif %}">
+                            <i class="fas fa-plug"></i>
+                            <span>Account Connections</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <form method="post" action="{% url 'account_logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="menu-link" style="background: none; border: none; width: 100%; text-align: left; cursor: pointer;">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="allauth-content">
+            <header class="page-header">
+                <h1 class="page-title">{% block page_title %}Account Settings{% endblock %}</h1>
+                <p class="page-subtitle">{% block page_subtitle %}Manage your account preferences and security settings{% endblock %}</p>
+            </header>
+
+            <!-- MESSAGES -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- CONTENT -->
+            <div class="content-card glass-panel">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    {% block extra_body %}{% endblock %}
+</body>
+</html>

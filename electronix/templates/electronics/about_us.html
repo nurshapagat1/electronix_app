@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - Electronix</title>
+    <link rel="stylesheet" href="{% static 'electronics/allauth_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'electronics/about_us.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="allauth-container">
+    <div class="allauth-main">
+        <aside class="allauth-sidebar">
+            <div class="sidebar-header">
+                <a href="/laptops/" class="brand-logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>Electronix</span>
+                </a>
+            </div>
+            
+            <nav>
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="/laptops/" class="menu-link">
+                            <i class="fas fa-laptop"></i>
+                            <span>Shop Laptops</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'review_list' %}" class="menu-link">
+                            <i class="fas fa-star"></i>
+                            <span>Customer Reviews</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'submit_review' %}" class="menu-link">
+                            <i class="fas fa-comment"></i>
+                            <span>Leave Feedback</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/laptops/" class="menu-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="allauth-content">
+            <header class="page-header">
+                <h1 class="page-title">About Electronix</h1>
+                <p class="page-subtitle">Premium Electronics Marketplace</p>
+            </header>
+
+            <!-- Статистика -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="stat-number">{{ total_products }}+</div>
+                    <div class="stat-label">Premium Products</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-number">{{ total_orders }}+</div>
+                    <div class="stat-label">Orders Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number">{{ total_reviews }}+</div>
+                    <div class="stat-label">Customer Reviews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Customer Support</div>
+                </div>
+            </div>
+
+            <!-- Основатели -->
+            <div class="founders-section">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Meet Our Founders
+                </h2>
+                
+                <div class="founders-grid">
+                    {% for founder in founders %}
+                    <div class="founder-card">
+                        <div class="founder-image">
+                            {% if founder.image %}
+                                <img src="{{ founder.image.url }}" alt="{{ founder.name }}">
+                            {% else %}
+                                <div class="founder-placeholder">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="founder-info">
+                            <h3>{{ founder.name }}</h3>
+                            <p class="founder-position">{{ founder.position }}</p>
+                            <p class="founder-bio">{{ founder.bio }}</p>
+                            <div class="founder-social">
+                                {% if founder.email %}
+                                <a href="mailto:{{ founder.email }}" class="social-link">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                                {% endif %}
+                                {% if founder.linkedin %}
+                                <a href="{{ founder.linkedin }}" target="_blank" class="social-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                {% endif %}
+                                {% if founder.twitter %}
+                                <a href="{{ founder.twitter }}" target="_blank" class="social-link">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="no-founders">
+                        <i class="fas fa-user-tie"></i>
+                        <p>Founder information coming soon</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- История компании -->
+            <div class="story-section">
+                <h2 class="section-title">
+                    <i class="fas fa-history"></i>
+                    Our Story
+                </h2>
+                <div class="story-content">
+                    <p>Electronix was founded with a simple mission: to provide premium electronics with exceptional customer service.</p>
+                    <p>We believe that technology should be accessible, reliable, and enhance your daily life.</p>
+                    <p>Every product in our store is carefully selected for quality, performance, and value.</p>
+                </div>
+            </div>
+
+            <!-- CTA кнопки -->
+            <div class="action-buttons">
+                <a href="{% url 'submit_review' %}" class="action-btn action-primary">
+                    <i class="fas fa-comment"></i>
+                    <span>Leave Feedback</span>
+                </a>
+                <a href="{% url 'review_list' %}" class="action-btn action-secondary">
+                    <i class="fas fa-star"></i>
+                    <span>See Reviews</span>
+                </a>
+                <a href="/laptops/" class="action-btn action-accent">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Shop Now</span>
+                </a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

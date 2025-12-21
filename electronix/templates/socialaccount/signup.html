@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up via Google - Electronix</title>
+    <link rel="stylesheet" href="{% static 'electronics/login.css' %}?v=999">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==========================
+           HEAVY MINIMALISTIC SOCIAL SIGNUP
+           ========================== */
+        .social-signup-body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .social-signup-body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.02) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.015) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.01) 0%, transparent 40%);
+            animation: float 35s infinite linear;
+            z-index: -2;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0,0) rotate(0deg); }
+            100% { transform: translate(3%,2%) rotate(360deg); }
+        }
+
+        .signup-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 64px 56px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 35px 70px -12px rgba(0,0,0,0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.05),
+                        0 12px 48px rgba(0,0,0,0.3);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .signup-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover);
+            box-shadow: 0 45px 90px -15px rgba(0,0,0,0.6),
+                        inset 0 1px 0 rgba(255,255,255,0.1),
+                        0 16px 56px rgba(0,0,0,0.4);
+        }
+
+        .signup-card::before {
+            content:'';
+            position: absolute;
+            top:0;
+            left:50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), rgba(255,255,255,0.4), rgba(255,255,255,0.2), transparent);
+            border-radius: 28px 28px 0 0;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .signup-header h1.brand-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--text), var(--text-muted));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .signup-header p.brand-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .go-back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 22px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 28px;
+        }
+
+        .go-back-btn i { font-size: 1rem; }
+        .go-back-btn:hover {
+            background: var(--surface-light);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 20px 24px 20px 56px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        /* FLOATING LABELS */
+        .floating-label {
+            position: absolute;
+            left: 56px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus + .floating-label,
+        .login-input:not(:placeholder-shown) + .floating-label {
+            top: -10px;
+            font-size: 0.75rem;
+            opacity: 0; /* disappear when focusing */
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 22px;
+            background: var(--surface-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.4s ease;
+            margin-top: 8px;
+        }
+
+        .signup-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+        }
+
+        .signup-alert {
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            border: 1px solid;
+            background: rgba(239,68,68,0.05);
+            border-color: rgba(239,68,68,0.2);
+            color: var(--danger);
+        }
+
+        .signup-links {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .signup-link {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-link:hover {
+            color: var(--text);
+        }
+
+        @media(max-width:768px){
+            .signup-card{padding:48px 32px;}
+            .brand-title{font-size:2.4rem;}
+        }
+        @media(max-width:480px){
+            .signup-card{padding:40px 24px;border-radius:24px;}
+            .login-input{padding:18px 20px 18px 52px;}
+        }
+    </style>
+</head>
+<body class="social-signup-body">
+    <div class="signup-card">
+        <header class="signup-header">
+            <h1 class="brand-title">ELECTRONIX</h1>
+            <p class="brand-subtitle">Sign Up with Google</p>
+        </header>
+
+        <a href="{% url 'google_login' %}?process=login&next=/laptops/" class="go-back-btn">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+
+        {% if form.errors %}
+            <div class="signup-alert">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="signup-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <input type="text" name="username" id="id_username" class="login-input" placeholder=" " required value="{{ form.username.value|default_if_none:'' }}">
+                <label for="id_username" class="floating-label">Username</label>
+                <div class="input-icon"><i class="fas fa-user"></i></div>
+            </div>
+
+            <div class="form-group">
+                <input type="email" name="email" id="id_email" class="login-input" placeholder=" " required value="{{ form.email.value|default_if_none:'' }}">
+                <label for="id_email" class="floating-label">Email</label>
+                <div class="input-icon"><i class="fas fa-envelope"></i></div>
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="password1" id="id_password1" class="login-input" placeholder=" " required>
+                <label for="id_password1" class="floating-label">Password</label>
+                <div class="input-icon"><i class="fas fa-lock"></i></div>
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="password2" id="id_password2" class="login-input" placeholder=" " required>
+                <label for="id_password2" class="floating-label">Confirm Password</label>
+                <div class="input-icon"><i class="fas fa-lock"></i></div>
+            </div>
+
+            <button type="submit" class="signup-btn">
+                <i class="fas fa-check-circle"></i> Complete Sign Up
+            </button>
+        </form>
+
+        <div class="signup-links">
+            <p>Already have an account? 
+                <a href="{% url 'account_login' %}" class="signup-link">Sign In</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

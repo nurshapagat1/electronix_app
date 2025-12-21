@@ -1,0 +1,364 @@
+/* ======================================================
+   ELECTRONIX PREMIUM CONTACT SUPPORT
+   Matching Login Page Style
+====================================================== */
+
+/* ROOT VARIABLES (same as login) */
+:root {
+    --bg-deep: #050505;
+    --bg-surface: #0a0a0a;
+    --bg-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    --border-light: rgba(255, 255, 255, 0.08);
+    --border-glow: rgba(255, 255, 255, 0.15);
+    --text-primary: #f5f5f7;
+    --text-secondary: #a1a1a6;
+    --text-accent: #ffffff;
+    --accent-blue: #007aff;
+    --accent-purple: #af52de;
+    --accent-gradient: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 30px rgba(0, 122, 255, 0.3);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* BASE STYLES */
+body.auth-body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ANIMATED BACKGROUND */
+.auth-body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 122, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(175, 82, 222, 0.05) 0%, transparent 50%);
+    animation: float 20s infinite linear;
+    z-index: -2;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-5%, -5%) rotate(360deg); }
+}
+
+/* MAIN CARD - GLASS MORPHISM */
+.auth-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 60px 50px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 
+        var(--shadow-heavy),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 35px 60px rgba(0, 0, 0, 0.6),
+        var(--shadow-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* GLOWING BORDER EFFECT */
+.auth-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--accent-blue), 
+        var(--accent-purple), 
+        transparent);
+    border-radius: 28px 28px 0 0;
+    animation: borderGlow 3s infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* HEADER */
+.brand-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.brand-header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 20px rgba(0, 122, 255, 0.3);
+}
+
+.brand-header .tagline {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* SUPPORT INFO */
+.support-info {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    line-height: 1.6;
+    font-size: 1rem;
+    padding: 0 10px;
+}
+
+/* CONTACT ITEMS */
+.contact-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid var(--border-light);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-item:hover {
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 0 0 3px rgba(0, 122, 255, 0.1),
+        inset 0 1px 4px rgba(255, 255, 255, 0.1);
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--accent-gradient);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.contact-content {
+    flex: 1;
+}
+
+.contact-label {
+    display: block;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-value {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+/* ACTION BUTTONS */
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    margin: 40px 0 30px;
+}
+
+.action-button {
+    flex: 1;
+    padding: 18px;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 
+        0 4px 12px rgba(0, 122, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.action-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: left 0.7s;
+}
+
+.action-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 24px rgba(0, 122, 255, 0.3),
+        0 0 20px rgba(0, 122, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.action-button:hover::before {
+    left: 100%;
+}
+
+.action-button.secondary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid var(--border-light);
+    color: var(--text-secondary);
+}
+
+.action-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+}
+
+/* BACK LINK */
+.back-link {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-light);
+}
+
+.auth-link {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-blue);
+    transition: width 0.3s;
+}
+
+.auth-link:hover {
+    color: white;
+}
+
+.auth-link:hover::after {
+    width: 100%;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 40px 30px;
+        margin: 10px;
+    }
+    
+    .brand-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .contact-item {
+        padding: 16px;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+    
+    .brand-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .brand-header .tagline {
+        font-size: 0.9rem;
+    }
+    
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+/* ANIMATION FOR ENTRY */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-card {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}

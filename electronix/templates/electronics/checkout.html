@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - Coming Soon</title>
+    <link rel="stylesheet" href="{% static 'electronics/sixth.css' %}?v=999">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: #050505; /* Same as other pages */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .overlay {
+            background: rgba(0,0,0,0.4);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Diagonal "Coming Soon" watermark */
+        .coming-soon-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.05);
+            white-space: nowrap;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .coming-soon-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 40px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Logo top-left */
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 3;
+            text-decoration: none;
+        }
+        .logo i {
+            font-size: 2rem;
+            color: #fff;
+        }
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Go back button */
+        .go-back-btn {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+        .go-back-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .coming-soon-container h1 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .coming-soon-container p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 24px;
+        }
+
+        .order-track-placeholder {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            color: #aaa;
+        }
+        .order-track-placeholder div {
+            height: 20px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon-container h1 { font-size: 2.5rem; }
+            .coming-soon-container p { font-size: 1rem; }
+            .coming-soon-watermark { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <!-- Diagonal Watermark -->
+    <div class="coming-soon-watermark">COMING SOON</div>
+
+    <!-- Logo Top Left -->
+    <a href="/laptops/" class="logo">
+        <i class="fas fa-microchip"></i>
+        <span>Electronix</span>
+    </a>
+
+    <!-- Go Back Button -->
+    <a href="/cart/" class="go-back-btn">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </a>
+
+    <!-- Coming Soon Card -->
+    <div class="coming-soon-container">
+        <h1>Checkout Coming Soon</h1>
+        <p>Hang tight! We’re building a smooth checkout experience for you.</p>
+
+
+        <!-- Placeholder Order & Track Section -->
+        <div class="order-track-placeholder">
+            <div style="width: 80%;"></div>
+            <div style="width: 60%;"></div>
+            <div style="width: 90%;"></div>
+            <div style="width: 50%;"></div>
+        </div>
+    </div>
+</body>
+</html>

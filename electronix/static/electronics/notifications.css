@@ -1,0 +1,85 @@
+/* ======================================================
+   ELECTRONIX NOTIFICATIONS
+====================================================== */
+
+/* Toast Notifications */
+.electronix-toast {
+    position: fixed;
+    top: 100px;
+    right: 32px;
+    padding: 20px 24px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 300px;
+    transform: translateX(400px);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.electronix-toast.show {
+    transform: translateX(0);
+}
+
+.electronix-toast i {
+    font-size: 1.2rem;
+}
+
+.electronix-toast.success i {
+    color: var(--success);
+}
+
+.electronix-toast.error i {
+    color: var(--danger);
+}
+
+.electronix-toast.info i {
+    color: var(--accent);
+}
+
+.electronix-toast.warning i {
+    color: var(--warning);
+}
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+}
+
+.toast-message {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.close-toast {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.close-toast:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+}

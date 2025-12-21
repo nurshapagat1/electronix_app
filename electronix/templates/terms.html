@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Terms of Service - Electronix</title>
+    <link rel="stylesheet" href="{% static 'electronics/allauth_styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .terms-container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .terms-content {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.02) 0%,
+                rgba(255, 255, 255, 0.01) 100%
+            );
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 60px;
+            margin-top: 40px;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: var(--surface-light);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+        
+        .back-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: var(--text);
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+        }
+        
+        .section p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .section ul {
+            color: var(--text-muted);
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .section li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body class="allauth-container">
+    <div class="terms-container">
+        <header class="page-header">
+            <h1 class="page-title">Terms of Service</h1>
+            <p class="page-subtitle">Last updated: December 2025</p>
+        </header>
+        
+        <div class="terms-content">
+            <div class="section">
+                <h2><i class="fas fa-gavel"></i> 1. Acceptance of Terms</h2>
+                <p>By accessing and using Electronix ("the Service"), you accept and agree to be bound by the terms and provision of this agreement.</p>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-shopping-cart"></i> 2. Electronic Products</h2>
+                <p>All electronics products sold through Electronix are subject to:</p>
+                <ul>
+                    <li>Manufacturer's warranty terms</li>
+                    <li>Return policy within 30 days</li>
+                    <li>Shipping restrictions may apply</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-user"></i> 3. User Accounts</h2>
+                <p>You are responsible for maintaining the confidentiality of your account and password.</p>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-ban"></i> 4. Prohibited Activities</h2>
+                <p>You may not use the Service for any illegal purpose or in violation of any laws.</p>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-exclamation-triangle"></i> 5. Limitation of Liability</h2>
+                <p>Electronix shall not be liable for any indirect, incidental, special, consequential or punitive damages.</p>
+            </div>
+            
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Sign Up</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

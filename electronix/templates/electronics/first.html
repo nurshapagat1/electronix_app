@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ELECTRONIX | Welcome</title>
+    <link rel="stylesheet" href="{% static 'electronics/first.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="landing-container">
+        <h1>ELECTRONIX</h1>
+        <p>Premium Electronics Experience</p>
+
+        <div class="landing-buttons">
+            <a href="{% url 'account_signup' %}">
+                <i class="fas fa-user-plus"></i>
+                <span>Sign Up</span>
+            </a>
+            <a href="{% url 'account_login' %}">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Sign In</span>
+            </a>
+        </div>
+        
+        <div class="welcome-features">
+            <div class="feature-item">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Fast Delivery</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-headset"></i>
+                <span>24/7 Support</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

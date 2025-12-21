@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Connections · Electronix</title>
+    <link rel="stylesheet" href="{% static 'electronics/allauth_styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="allauth-container">
+    <div class="allauth-main">
+        <aside class="allauth-sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="brand-logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>Electronix</span>
+                </a>
+            </div>
+            
+            <nav>
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="{% url 'account_email' %}" class="menu-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Change Email</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'account_change_password' %}" class="menu-link">
+                            <i class="fas fa-key"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{% url 'socialaccount_connections' %}" class="menu-link active">
+                            <i class="fas fa-plug"></i>
+                            <span>Account Connections</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <form method="post" action="{% url 'account_logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="menu-link" style="background: none; border: none; width: 100%; text-align: left; cursor: pointer;">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="allauth-content">
+            <header class="page-header">
+                <h1 class="page-title">Account Connections</h1>
+                <p class="page-subtitle">Connect your social accounts securely</p>
+            </header>
+
+            <div class="password-change-card">
+                <h2>Connect Accounts</h2>
+                <p class="muted">Currently, only Google sign-in is available.</p>
+
+                <!-- Google Account -->
+                {% if google_connected %}
+                    <div class="message-alert message-success">
+                        <div class="message-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="message-content">
+                            <div class="message-title">Google Connected</div>
+                            <div class="message-text">Your Google account is already connected.</div>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% provider_login_url 'google' %}" class="connect-btn google-btn">
+                        <i class="fab fa-google"></i> Connect Google
+                    </a>
+                {% endif %}
+
+                <!-- Other Providers -->
+                <div class="other-providers">
+                    <div class="provider disabled">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook <span class="badge">Coming Soon</span>
+                    </div>
+                    <div class="provider disabled">
+                        <i class="fab fa-twitter"></i>
+                        Twitter <span class="badge">Coming Soon</span>
+                    </div>
+                    <div class="provider disabled">
+                        <i class="fab fa-github"></i>
+                        GitHub <span class="badge">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <style>
+        .password-change-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 24px;
+        }
+
+        .connect-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 24px;
+        }
+
+        .connect-btn:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .other-providers {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .provider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        .provider i {
+            font-size: 1.2rem;
+        }
+
+        .provider .badge {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: auto;
+        }
+
+        .muted {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .message-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            border: 1px solid;
+        }
+
+        .message-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .message-icon {
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .message-text {
+            font-size: 0.95rem;
+        }
+    </style>
+</body>
+</html>

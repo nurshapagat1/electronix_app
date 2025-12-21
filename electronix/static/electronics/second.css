@@ -1,0 +1,49 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Top navigation bar */
+body {
+    display: flex;
+    height: 64px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb; /* subtle bottom border */
+}
+
+/* Navigation buttons */
+button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-right: 1px solid #e5e7eb; /* clean separators */
+    font-size: 15px;
+    font-weight: 500;
+    color: #111827;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Remove last separator */
+button:last-child {
+    border-right: none;
+}
+
+/* Hover state */
+button:hover {
+    background-color: #f9fafb;
+}
+
+/* Active / pressed state */
+button:active {
+    background-color: #f3f4f6;
+}
+
+/* Focus (accessibility) */
+button:focus-visible {
+    outline: none;
+    box-shadow: inset 0 -2px 0 #2563eb; /* modern active indicator */
+}
