@@ -166,3 +166,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {'access_type': 'online'},
     }
 }
+CSRF_TRUSTED_ORIGINS = [
+    'https://electronix-app.onrender.com',
+]
