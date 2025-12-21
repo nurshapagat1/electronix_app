@@ -178,3 +178,20 @@ CSRF_TRUSTED_ORIGINS = ['https://electronix-app.onrender.com']
 # Security settings for production
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
+else:
+    CSRF_TRUSTED_ORIGINS = ['https://electronix-app.onrender.com']
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+# Tell allauth to use your custom signup logic
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+# If you want to force the custom signup view for email signups too:
+# ACCOUNT_ADAPTER = 'your_app_name.adapter.MyAccountAdapter'
+# Media files (Uploaded images)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
