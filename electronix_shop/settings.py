@@ -144,8 +144,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'nurshapagat879@gmail.com'
 EMAIL_HOST_PASSWORD = 'shcqjxwhhgmqzduq'
 #login/logout redirect
-LOGIN_REDIRECT_URL = '/laptops/'  # or wherever you want
-LOGOUT_REDIRECT_URL = '/'  # optional, after logout
+LOGIN_REDIRECT_URL = '/laptops/'
+LOGOUT_REDIRECT_URL = '/' 
+SIGNUP_REDIRECT_URL = '/laptops/'  
 #app name google oath Electronixx
 
 import os
