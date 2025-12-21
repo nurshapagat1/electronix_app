@@ -153,6 +153,8 @@ from dotenv import load_dotenv
 load_dotenv()
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
         'APP': {
             'client_id': os.getenv('GOOGLE_CLIENT_ID'),
             'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
@@ -160,16 +162,11 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
-    }
-}
+
 CSRF_TRUSTED_ORIGINS = [
     'https://electronix-app.onrender.com',
     'https://*.onrender.com',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'https://https://electronix-app.onrender.com/accounts/google/login/?process=login&next=/laptops/',
+    'https://electronix-app.onrender.com/accounts/google/login/?process=login&next=/laptops/',
 ]
