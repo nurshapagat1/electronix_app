@@ -195,3 +195,5 @@ SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapt
 # Media files (Uploaded images)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+ACCOUNT_EMAIL_VERIFICATION = 'none' # Don't wait for email confirmation
+ACCOUNT_LOGIN_ON_SIGNUP = True
