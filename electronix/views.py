@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from allauth.socialaccount.models import SocialAccount
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 
 # --- Forms ---
 class ReviewForm(forms.ModelForm):
@@ -288,3 +290,8 @@ class CustomSignupView(SignupView):
 
 def debug_google_url(request):
     return HttpResponse("Debug: Google callback check.")
+def create_admin_account(request):
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'YourPassword123')
+        return HttpResponse("Admin created successfully!")
+    return HttpResponse("Admin already exists.")
