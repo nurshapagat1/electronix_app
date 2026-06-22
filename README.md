@@ -201,25 +201,6 @@ http://127.0.0.1:8000/admin/
 
 Login using the superuser account created earlier.
 
----
-
-Project Structure
-
-electronix_app/
-│
-├── apps/
-│   ├── products/
-│   ├── orders/
-│   ├── accounts/
-│
-├── templates/
-├── static/
-├── media/
-│
-├── manage.py
-├── requirements.txt
-├── .env
-└── README.md
 
 ---
 
