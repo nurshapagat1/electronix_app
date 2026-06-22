@@ -3,13 +3,8 @@ Electronix Shop
 An e-commerce web application built with Django.
 
 ---
-
-Screenshots
-
-(Add screenshots of your project here)
-
 ---
-
+---
 About
 
 Electronix Shop is a full-featured online store for electronics built with Django.
