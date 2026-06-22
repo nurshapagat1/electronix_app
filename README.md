@@ -38,8 +38,8 @@ Electronix Shop is an online store for electronics. Users can browse products, a
    git clone https://github.com/nurshapagat1/electronix_app.git
    cd electronix_app
 ```
-
 2. Create a virtual environment:
+  to create a virtual environment:
    ```bash
    python -m venv venv
    source venv/bin/activate  # Windows: venv\Scripts\activate
